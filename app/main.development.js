@@ -1,4 +1,16 @@
 import { app, BrowserWindow, Menu, shell } from 'electron';
+const ipc = require('electron').ipcMain
+
+
+ipc.on('asynchronous-message', function (event, arg) {
+  //console.log('==> asynchronous-message'); // write to console
+  console.log('arg ==>', arg)
+
+  // set timer with this variables
+  // arg.time
+  // arg.taskName
+  event.sender.send('asynchronous-reply', arg)
+});
 
 let menu;
 let template;

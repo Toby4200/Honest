@@ -23,7 +23,6 @@ export default class Home extends Component {
     timerWindow.loadURL('file://' + path + '/app/InnerPages/TimerModal/index.html');
 
     // console.log('==> set timer');
-
   }
 
   render() {
