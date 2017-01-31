@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Create TASK</title>
+  <script>
+    (function() {
+      if (!process.env.HOT) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = './dist/style.css';
+        // HACK: Writing the script path should be done with webpack
+        document.getElementsByTagName('head')[0].appendChild(link);
+      }
+    }());
+  </script>
+</head>
+<body>
+<div id="root"></div>
+<h1>Hi there</h1>
+<form action="">
+  <label for="">Task name</label>
+  <input type="text">
+
+  <label for="">Time to collapse</label>
+  <input type="text">
+</form>
+<script>
+require('./TimerModal.js');
+</script>
+</body>
+</html>
