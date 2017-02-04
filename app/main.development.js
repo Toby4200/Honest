@@ -57,6 +57,9 @@ app.on('ready', async () => {
   await installExtensions();
 
   mainWindow = new BrowserWindow({
+    webPreferences: {
+      experimentalFeatures: true
+    },
     show: false,
     width: 1024,
     height: 728

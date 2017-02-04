@@ -12,7 +12,7 @@ let timerWindow = null;
 
 // console.log('path ==>', remote.app.getPath('appData'))
 var path = process.cwd();
-console.log('path ==>', path)
+
 export default class Home extends Component {
   setTimer() {
     timerWindow = new BrowserWindow({
@@ -32,6 +32,20 @@ export default class Home extends Component {
           <h2>Welcome to Honest</h2>
           {/*<Link to="/counter">to Counter</Link>*/}
           <button onClick={this.setTimer} >Set Timer</button>
+        </div>
+
+        <div className={styles.grid}>
+          <div className={styles.leftPanel}>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div className={styles.firstBlock}></div>
+          <div className={styles.secondBlock}></div>
+          <div className={styles.thirdBlock}></div>
+          <div className={styles.fourthBlock}></div>
+          <div className={styles.logo}>Honest</div>
         </div>
       </div>
     );

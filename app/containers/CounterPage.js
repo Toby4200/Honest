@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 import Counter from '../components/Counter';
 import * as CounterActions from '../actions/counter';
 import styles from './CounterPage.css';
-console.log('styles ==>', styles)
 
 function mapStateToProps(state) {
   return {
