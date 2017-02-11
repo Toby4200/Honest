@@ -5,7 +5,7 @@
   text-align: center;
   widht: 25%;
   height: 25%;
-  display: none
+  //display: none
 }
 
 .container h2 {
@@ -77,9 +77,17 @@
   border-radius: 50%;
   text-transform: uppercase;
   color: #0def0d;
-  text-shadow: 0 -5px 0px rgb(0, 0, 0), 0 -6px 0px rgba(33, 175, 23, 0.38);
+  //text-shadow: 0 -5px 0px rgb(0, 0, 0), 0 -6px 0px rgba(33, 175, 23, 0.38);
   border-top: 1px solid #0def0d;
   border-right: 1px solid #0def0d;
   box-shadow: -4px 7px 12px 0px rgba(13, 239, 13, 0.5);
 }
 
+.button {
+
+}
+
+.addButton {
+ width: 30px;
+  height: 30px;
+}
