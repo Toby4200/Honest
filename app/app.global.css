@@ -6,7 +6,7 @@ body {
   height: 100vh;
   background-color: #232C39;
   background: #262926;
-  font-family: Arial, Helvetica, Helvetica Neue, serif;
+  font-family: 'Roboto', sans-serif;
   overflow-y: hidden;
   margin: 0;
 }

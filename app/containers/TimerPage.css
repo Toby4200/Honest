@@ -1,2 +1,7 @@
-.c-timer-page
-  padding: 0
+.c-timer-page {
+  padding: 0;
+}
+
+.input {
+  display: block;
+}

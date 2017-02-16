@@ -7,6 +7,16 @@ import Counter from '../components/Counter';
 import * as TimerActions from '../actions/counter';
 import styles from './TimerPage.css';
 
+// node.js imports
+var fs = require('fs');
+var mysql      = require('mysql');
+
+// material-ui imports
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+
+console.log('fs ==>', fs)
 function mapStateToProps(state) {
   return {
     counter: state.counter
@@ -32,14 +42,90 @@ class TimerPage extends Component {
   //
   // };
 
+  setTimer(e) {
+    // console.dir for display HTML element as object
+    const taskName = document.querySelector('[name="taskName"]').value;
+    const taskTimeInMinutes = Number(document.querySelector('[name="taskTime"]').value);
+
+    //block screen with counter
+      // disable button
+
+    // write to db
+    setTimeout(this.logTaskToDatabase, taskTimeInMinutes * 60 * 1000);
+  }
+
+  logTaskToDatabase() {
+    console.log('==> write to database');
+
+    //show confirm message
+
+
+    //write to db
+
+    // let success = process.argv[2]
+    // let date = process.argv[3]; // date
+    // let taskName = process.argv[4]; // task name
+    // let minutes = process.argv[5]; // minutes
+    // let additional = process.argv[6]; // minutes
+    // let beginTaskTime = new Date().getTime(); // begin task time
+    // let endTaskTime = new Date().getTime(); // end time
+
+  }
+
+  state = {
+    open: false,
+  };
+
+  handleOpen = () => {
+    this.setState({open: true});
+  };
+
+  handleClose = () => {
+    this.setState({open: false});
+  };
+
   render() {
     console.log('this.props ==>', this.props)
     // const {
     //
     // } = this.props;
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        disabled={true}
+        onTouchTap={this.handleClose}
+      />,
+    ];
+
     return (
       <div className={styles['c-timer-page']}>
-        Timer
+        <span>Enter task:</span>
+        <input className={styles.input} name='taskName' type="text"/>
+        <input className={styles.input} name="taskTime" type="text"/>
+        <button
+          onClick={::this.setTimer}
+        >
+          create Task
+        </button>
+
+
+        <div>
+          <RaisedButton label="Modal Dialog" onTouchTap={this.handleOpen} />
+          <Dialog
+            title="Dialog With Actions"
+            actions={actions}
+            modal={true}
+            open={this.state.open}
+          >
+            Only actions can close this dialog.
+          </Dialog>
+        </div>
       </div>
     );
   }
