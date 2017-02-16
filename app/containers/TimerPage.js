@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 import Counter from '../components/Counter';
-import * as TimerActions from '../actions/counter';
+import * as TimerActions from '../actions/timerActions';
 import styles from './TimerPage.css';
 
 // node.js imports
@@ -19,12 +19,15 @@ import RaisedButton from 'material-ui/RaisedButton';
 console.log('fs ==>', fs)
 function mapStateToProps(state) {
   return {
-    counter: state.counter
-  };
+    timerState: state.timerReducer
+  }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(TimerActions, dispatch);
+  return {
+    timerActions: bindActionCreators(TimerActions, dispatch)
+  }
+  // return bindActionCreators(TimerActions, dispatch);
 }
 // console.log('connect ==>', connect.toString())
 
@@ -42,14 +45,19 @@ class TimerPage extends Component {
   //
   // };
 
+  /**
+   * Spend Time on task
+   * @param e
+   */
   setTimer(e) {
-    // console.dir for display HTML element as object
     const taskName = document.querySelector('[name="taskName"]').value;
     const taskTimeInMinutes = Number(document.querySelector('[name="taskTime"]').value);
 
     //block screen with counter
       // disable button
 
+      this.props.timerActions.setIsTimerActive(true);
+      // this.props.timerActions.setTimerCountDown(true);
     // write to db
     setTimeout(this.logTaskToDatabase, taskTimeInMinutes * 60 * 1000);
   }
@@ -84,6 +92,12 @@ class TimerPage extends Component {
     this.setState({open: false});
   };
 
+  renderCountdown() {
+    return (
+      <div className={styles.countdown}>hi there</div>
+    )
+  }
+
   render() {
     console.log('this.props ==>', this.props)
     // const {
@@ -103,6 +117,10 @@ class TimerPage extends Component {
       />,
     ];
 
+    const {
+      isTimerActive
+    } = this.props.timerState;
+
     return (
       <div className={styles['c-timer-page']}>
         <span>Enter task:</span>
@@ -116,7 +134,6 @@ class TimerPage extends Component {
 
 
         <div>
-          <RaisedButton label="Modal Dialog" onTouchTap={this.handleOpen} />
           <Dialog
             title="Dialog With Actions"
             actions={actions}
@@ -125,6 +142,10 @@ class TimerPage extends Component {
           >
             Only actions can close this dialog.
           </Dialog>
+
+          {
+            isTimerActive ? this.renderCountdown() : () => {}
+          }
         </div>
       </div>
     );
