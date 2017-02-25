@@ -50,16 +50,30 @@ class TimerPage extends Component {
    * @param e
    */
   setTimer(e) {
+    const {
+      setIsTimerActive,
+      countdownTimer
+    } = this.props.timerActions;
+
+    // const {
+    //   timeCount
+    // } = this.props.timerState;
+
     const taskName = document.querySelector('[name="taskName"]').value;
     const taskTimeInMinutes = Number(document.querySelector('[name="taskTime"]').value);
-
+    const timestampStart = Date.now();
+    const timestampEnd = timestampStart + taskTimeInMinutes * 60 * 1000;
     //block screen with counter
       // disable button
 
-      this.props.timerActions.setIsTimerActive(true);
-      // this.props.timerActions.setTimerCountDown(true);
+      // set active timer
+      // this.props.timerActions.setIsTimerActive(true, taskTimeInMinutes);
+      this.props.timerActions.setTimer(true, timestampStart, timestampEnd, taskTimeInMinutes);
     // write to db
-    setTimeout(this.logTaskToDatabase, taskTimeInMinutes * 60 * 1000);
+    this.timer = setInterval(this.props.timerActions.countdownTimer.bind(this), 1000);
+    // log to DB
+    // setTimeout(this.logTaskToDatabase, taskTimeInMinutes * 60 * 1000);
+    setTimeout(this.props.timerActions.setTaskEnd.bind(this, this.timer), taskTimeInMinutes * 60 * 1000);
   }
 
   logTaskToDatabase() {
@@ -93,8 +107,18 @@ class TimerPage extends Component {
   };
 
   renderCountdown() {
+    const {
+      timestampEnd
+    } = this.props.timerState;
+    const minuteLeft = (timestampEnd - Date.now()) / 1000 / 60;
+
     return (
-      <div className={styles.countdown}>hi there</div>
+      <div className={styles.countdown}>
+        hi there
+        <span className="countdown-numb">
+          {minuteLeft}
+        </span>
+      </div>
     )
   }
 
@@ -112,13 +136,13 @@ class TimerPage extends Component {
       <FlatButton
         label="Submit"
         primary={true}
-        disabled={true}
         onTouchTap={this.handleClose}
       />,
     ];
 
     const {
-      isTimerActive
+      isTimerActive,
+      isTaskEnd
     } = this.props.timerState;
 
     return (
@@ -138,7 +162,7 @@ class TimerPage extends Component {
             title="Dialog With Actions"
             actions={actions}
             modal={true}
-            open={this.state.open}
+            open={isTaskEnd}
           >
             Only actions can close this dialog.
           </Dialog>

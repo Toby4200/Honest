@@ -1,1 +1,2 @@
-export const SET_IS_TIMER_ACTIVE = 'SET_IS_TIMER_ACTIVE';
+export const SET_TIMER = 'SET_TIMER';
+export const SET_TASK_END = 'SET_TASK_END';

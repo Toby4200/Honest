@@ -1,8 +1,21 @@
 import * as actionTypes from '../constants/timerConstants';
 
-export function setIsTimerActive(isTimerActive) {
+export function setTimer(isTimerActive, timestampStart, timestampEnd, timeCount) {
   return {
-    type: actionTypes.SET_IS_TIMER_ACTIVE,
-    isTimerActive
+    type: actionTypes.SET_TIMER,
+    isTimerActive,
+    timeCount,
+    timestampStart,
+    timestampEnd
+  }
+}
+
+export function setTaskEnd(taskTimer) {
+  return function (dispatch) {
+    clearInterval(taskTimer);
+
+    dispatch({
+      type: actionTypes.SET_TASK_END
+    });
   }
 }
